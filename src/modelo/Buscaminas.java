@@ -66,7 +66,7 @@ public class Buscaminas {
 	/**
 	 * Es una constante utilizada para saber la cantidad de minas en nivel principiante
 	 */
-	public static final int CANTIDAD_MINAS_PRINCIPANTE = 10;
+	public static final int CANTIDAD_MINAS_PRINCIPIANTE = 10;
 
 	/**
 	 * Es una constante utilizada para saber la cantidad de minas en nivel intermedio
@@ -127,13 +127,13 @@ public class Buscaminas {
 	 */
 	private void inicializarPartida() {
 		if(nivel == PRINCIPIANTE) {
-			casillas = new Casilla[8][8];
+			casillas = new Casilla[FILAS_PRINCIPIANTE][COLUMNAS_PRINCIPIANTE];
 		}
 		else if(nivel == INTERMEDIO) {
-			casillas = new Casilla[16][16];
+			casillas = new Casilla[FILAS_INTERMEDIO][COLUMNAS_INTERMEDIO];
 		}
 		else if(nivel == EXPERTO) {
-			casillas = new Casilla[16][30];
+			casillas = new Casilla[FILAS_EXPERTO][COLUMNAS_EXPERTO];
 		}
 		generarMinas();
 	}
@@ -194,7 +194,7 @@ public class Buscaminas {
 	 */
 	public void generarMinas() {
 		if(nivel == PRINCIPIANTE) {
-			for(int i = 0; i < 10;) {
+			for(int i = 0; i < CANTIDAD_MINAS_PRINCIPIANTE;) {
 				int fila = (int)(Math.random()*8);
 				int columna = (int)(Math.random()*8);
 				if(casillas[fila][columna] == null) {
@@ -204,7 +204,7 @@ public class Buscaminas {
 			}
 		}
 		else if(nivel == INTERMEDIO) {
-			for(int i = 0; i < 40;) {
+			for(int i = 0; i < CANTIDAD_MINAS_INTERMEDIO;) {
 				int fila = (int)(Math.random()*16);
 				int columna = (int)(Math.random()*16);
 				if(casillas[fila][columna] == null) {
@@ -214,7 +214,7 @@ public class Buscaminas {
 			}
 		}
 		else if(nivel == EXPERTO) {
-			for(int i = 0; i < 99;) {
+			for(int i = 0; i < CANTIDAD_MINAS_EXPERTO;) {
 				int fila = (int)(Math.random()*16);
 				int columna = (int)(Math.random()*30);
 				if(casillas[fila][columna] == null) {
@@ -307,9 +307,18 @@ public class Buscaminas {
 	 * @return String, Mensaje de la Casilla que marco abierta, En caso de no haber casillas posibles para dar una pista, retorna el mensaje no hay pistas para dar
 	 */
 	public String darPista() {
-
-		// TODO
-		return null;
+		String msg = "No hay casillas disponibles para dar una pista";
+		boolean pista = false;
+		for(int i = 0; i < casillas.length && !pista; i++) {
+			for(int j = 0; j < casillas[0].length && !pista; j++) {
+				if(!casillas[i][j].esMina() && !casillas[i][j].darSeleccionada() && casillas[i][j].darValor() > 0) {
+					casillas[i][j].destapar();
+					msg = "Se despapo la casilla "+(i+1)+"-"+(j+1);
+					pista = true;
+				}
+			}
+		}
+		return msg;
 	}
 	
 	/***
