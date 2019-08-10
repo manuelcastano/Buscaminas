@@ -10,6 +10,7 @@
 
 package interfaz;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import modelo.Buscaminas;
 
@@ -79,6 +80,8 @@ public class Menu {
 
 				if(juego.gano()){
 					System.out.println("Felicitaciones Ganaste!!!!!!!");
+					mostrarTablero();
+					salir = true;
 				}
 				break;
 
@@ -87,6 +90,8 @@ public class Menu {
 				System.out.println(juego.darPista());
 				if(juego.gano()){
 					System.out.println("Felicitaciones Ganaste!!!!!!!");
+					mostrarTablero();
+					salir = true;
 				}
 				break;
 
@@ -124,16 +129,37 @@ public class Menu {
 	public boolean abrirCasilla() {
 
 		boolean abrir = false;
-		System.out.println("Por favor digite el número de la fila que desea abrir");
-		int i = lector.nextInt();
-		i--;
-		lector.nextLine();		
-
-		System.out.println("Por favor digite el número de la columna que desea abrir");
-		int j = lector.nextInt();
-		j--;
-		lector.nextLine();		
-
+		boolean error1 = false;
+		boolean error2 = false;
+		int i = 0;
+		int j = 0;
+		
+		while(!error1) {
+			try {
+				System.out.println("Por favor digite el número de la fila que desea abrir");
+				i = lector.nextInt();
+				i--;
+				lector.nextLine();
+				error1 = true;
+			}
+			catch(InputMismatchException e) {
+				lector.nextLine();
+				System.out.println("Digitaste valores incorrectos");
+			}
+		}
+		while(!error2) {
+			try {
+				System.out.println("Por favor digite el número de la columna que desea abrir");
+				j = lector.nextInt();
+				j--;
+				lector.nextLine();	
+				error2 = true;
+			}
+			catch(InputMismatchException e) {
+				lector.nextLine();
+				System.out.println("Digitaste valores incorrectos");
+			}
+		}
 		if(i>=0 && i<juego.darCasillas().length && j>=0 && j<juego.darCasillas()[0].length){
 			abrir = juego.abrirCasilla(i,j);			
 		}else {
@@ -148,15 +174,26 @@ public class Menu {
 	 * Método que se encarga mostrar el menu de un juego al usuario
 	 * @return int - la seleccion del usuario
 	 */
-	public int menuJuego(){
-		System.out.println("Que deseas hacer ?");
-		System.out.println("1. Abrir una casilla ");
-		System.out.println("2. Dar pista ");
-		System.out.println("3. Ver la solución del Buscaminas ");
-		System.out.println("4. Salir ");
+	public int menuJuego() {
+		boolean error = false;
+		int valor = 0;
+		while(!error) {
+			try {
+				System.out.println("Que deseas hacer ?");
+				System.out.println("1. Abrir una casilla ");
+				System.out.println("2. Dar pista ");
+				System.out.println("3. Ver la solución del Buscaminas ");
+				System.out.println("4. Salir ");
 
-		int valor = lector.nextInt();
-		lector.nextLine();			
+				valor = lector.nextInt();
+				lector.nextLine();
+				error = true;
+			}
+			catch(InputMismatchException e) {
+				lector.nextLine();
+				System.out.println("Por favor ingrese un valor correcto");
+			}
+		}
 		return valor;
 	}
 
@@ -184,24 +221,26 @@ public class Menu {
 	 * @return int - el valor de dificultad seleccionado por el usuario
 	 */
 	public int seleccionarDificultad() {
-
 		int seleccion = -1;
-
-		while (seleccion<1 || seleccion>3) {
-
+		boolean error = false;
+		while ((seleccion<1 || seleccion>3) || !error) {
 			System.out.println("Por favor elija el nivel de dificultad: ");
 			System.out.println("1. Principiante ");
 			System.out.println("2. Intermedio ");
 			System.out.println("3. Experto ");
-			
-			seleccion = lector.nextInt();
-			lector.nextLine();
-
-			if(seleccion<1 || seleccion>3){
+			try {
+				seleccion = lector.nextInt();
+				lector.nextLine();
+				error = true;
+				if(seleccion<1 || seleccion>3){
+					System.out.println("Por favor ingrese un valor correcto");
+				}
+			}
+			catch(InputMismatchException e) {
+				lector.nextLine();
 				System.out.println("Por favor ingrese un valor correcto");
 			}
 		}
-
 		return seleccion;
 	}
 
@@ -276,7 +315,7 @@ public class Menu {
 
 
 	/**
-	 * Meotdo main
+	 * Metodo main
 	 * @param args
 	 */
 	public static void main(String[] args) {
