@@ -3,8 +3,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 import modelo.Buscaminas;
+import modelo.ExcepcionDarPista;
 
-class testBuscaminas {
+public class TestBuscaminas {
 	
 	private Buscaminas juego;
 	
@@ -147,17 +148,29 @@ class testBuscaminas {
 	public void testDarPista() {
 		setupEscenario1();
 		String tablero1 = juego.mostrarTablero();
-		juego.darPista();
+		try {
+			juego.darPista();
+		}
+		catch(ExcepcionDarPista e) {
+		}
 		String tablero2 = juego.mostrarTablero();
 		assertFalse(tablero1.equals(tablero2));
 		setupEscenario2();
 		tablero1 = juego.mostrarTablero();
-		juego.darPista();
+		try {
+			juego.darPista();
+		}
+		catch(ExcepcionDarPista e) {
+		}
 		tablero2 = juego.mostrarTablero();
 		assertFalse(tablero1.equals(tablero2));
 		setupEscenario3();
 		tablero1 = juego.mostrarTablero();
-		juego.darPista();
+		try {
+			juego.darPista();
+		}
+		catch(ExcepcionDarPista e) {
+		}
 		tablero2 = juego.mostrarTablero();
 		assertFalse(tablero1.equals(tablero2));
 	}
@@ -177,5 +190,88 @@ class testBuscaminas {
 		juego.resolver();
 		assertTrue(juego.gano());
 	}
-
+	
+	@Test
+	public void testResolver() {
+		setupEscenario1();
+		juego.resolver();
+		String tablero = juego.mostrarTablero();
+		boolean mina = false;
+		for(int i = 0; i < tablero.length() && !mina; i++) {
+			if(tablero.charAt(i) == '-') {
+				mina = true;
+			}
+		}
+		assertFalse(mina);
+		setupEscenario2();
+		juego.resolver();
+		tablero = juego.mostrarTablero();
+		mina = false;
+		for(int i = 0; i < tablero.length() && !mina; i++) {
+			if(tablero.charAt(i) == '-') {
+				mina = true;
+			}
+		}
+		assertFalse(mina);
+		setupEscenario3();
+		juego.resolver();
+		tablero = juego.mostrarTablero();
+		mina = false;
+		for(int i = 0; i < tablero.length() && !mina; i++) {
+			if(tablero.charAt(i) == '-') {
+				mina = true;
+			}
+		}
+		assertFalse(mina);
+	}
+	
+	@Test
+	public void testAbrirCasilla() {
+		setupEscenario1();
+		for(int i = 0; i < juego.darCasillas().length; i++) {
+			for(int j = 0; j < juego.darCasillas()[0].length; j++) {
+				juego.abrirCasilla(i, j);
+				assertTrue(juego.darCasillas()[i][j].darSeleccionada());
+			}
+		}
+	}
+	
+	@Test
+	public void testCantidadMinasAlrededor() {
+		setupEscenario1();
+		assertFalse(juego.darCasillas()[0][0].darValor() > 3);
+		assertFalse(juego.darCasillas()[7][7].darValor() > 3);
+		assertFalse(juego.darCasillas()[4][7].darValor() > 8);
+		setupEscenario2();
+		assertFalse(juego.darCasillas()[0][0].darValor() > 3);
+		assertFalse(juego.darCasillas()[2][1].darValor() > 5);
+		assertFalse(juego.darCasillas()[4][7].darValor() > 8);
+		setupEscenario3();
+		assertFalse(juego.darCasillas()[0][0].darValor() > 3);
+		assertFalse(juego.darCasillas()[1][4].darValor() > 5);
+		assertFalse(juego.darCasillas()[4][7].darValor() > 8);
+	}
+	
+	@Test
+	public void testInicializarPartida() {
+		setupEscenario1();
+		assertTrue(juego.darCasillas().length == 8);
+		assertTrue(juego.darCasillas()[0].length == 8);
+		setupEscenario2();
+		assertTrue(juego.darCasillas().length == 16);
+		assertTrue(juego.darCasillas()[0].length == 16);
+		setupEscenario3();
+		assertTrue(juego.darCasillas().length == 16);
+		assertTrue(juego.darCasillas()[0].length == 30);
+	}
+	
+	@Test
+	public void testInicializarCasillasLibres() {
+		setupEscenario1();
+		for(int i = 0; i < juego.darCasillas().length; i++) {
+			for(int j = 0; j < juego.darCasillas()[0].length; j++) {
+				assertTrue(juego.darCasillas()[i][j] != null);
+			}
+		}
+	}
 }

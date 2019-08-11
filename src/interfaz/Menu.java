@@ -12,7 +12,7 @@ package interfaz;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
-import modelo.Buscaminas;
+import modelo.*;
 
 public class Menu {
 	
@@ -42,7 +42,17 @@ public class Menu {
 	public Menu(){
 		lector = new Scanner(System.in);
 		mostrarBienvenida();
-		int dificultad = seleccionarDificultad();
+		int dificultad = 0;
+		boolean error = false;
+		while(!error) {
+			try {
+				dificultad = seleccionarDificultad();
+				error = true;
+			}
+			catch(ExcepcionDificultad e) {
+				System.out.println(e.getMessage());
+			}
+		}
 		juego = new Buscaminas(dificultad);
 		manejoJuego();
 	}
@@ -68,8 +78,13 @@ public class Menu {
 			switch (valorUsuario) {
 			case 1:
 				//Abrir una casilla
-				if(!abrirCasilla()){
-					System.out.println("La casilla ya estaba abierta o es incorrecta!");
+				try {
+					if(!abrirCasilla()){
+						System.out.println("La casilla ya estaba abierta o es incorrecta!");
+					}
+				}
+				catch(ExcepcionNoExisteCasilla e) {
+					System.out.println(e.getMessage());
 				}
 				
 				if (juego.darPerdio()) {
@@ -87,7 +102,12 @@ public class Menu {
 
 			case 2:
 				//Dar Pista
-				System.out.println(juego.darPista());
+				try {
+					System.out.println(juego.darPista());
+				}
+				catch(ExcepcionDarPista e) {
+					System.out.println(e.getMessage());
+				}
 				if(juego.gano()){
 					System.out.println("Felicitaciones Ganaste!!!!!!!");
 					mostrarTablero();
@@ -125,8 +145,9 @@ public class Menu {
 	/**
 	 * Metodo encargado de abrir las casillas
 	 * @return boolean, true si fue posible abrir la casilla, false en caso contrario
+	 * @throws ExcepcionNoExisteCasilla 
 	 */
-	public boolean abrirCasilla() {
+	public boolean abrirCasilla() throws ExcepcionNoExisteCasilla {
 
 		boolean abrir = false;
 		boolean error1 = false;
@@ -163,7 +184,7 @@ public class Menu {
 		if(i>=0 && i<juego.darCasillas().length && j>=0 && j<juego.darCasillas()[0].length){
 			abrir = juego.abrirCasilla(i,j);			
 		}else {
-			System.out.println("Digitaste valores incorrectos");
+			throw new ExcepcionNoExisteCasilla();
 		}
 
 		return abrir;
@@ -219,8 +240,9 @@ public class Menu {
 	/**
 	 * Metodo que muestra el Menu donde el usuario elige la dificultad del buscaminas
 	 * @return int - el valor de dificultad seleccionado por el usuario
+	 * @throws ExcepcionDificultad 
 	 */
-	public int seleccionarDificultad() {
+	public int seleccionarDificultad() throws ExcepcionDificultad {
 		int seleccion = -1;
 		boolean error = false;
 		while ((seleccion<1 || seleccion>3) || !error) {
@@ -233,7 +255,7 @@ public class Menu {
 				lector.nextLine();
 				error = true;
 				if(seleccion<1 || seleccion>3){
-					System.out.println("Por favor ingrese un valor correcto");
+					throw new ExcepcionDificultad();
 				}
 			}
 			catch(InputMismatchException e) {
