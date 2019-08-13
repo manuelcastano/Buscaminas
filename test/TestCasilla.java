@@ -29,6 +29,7 @@ public class TestCasilla {
 		setupEscenario2();
 		assertTrue(casilla.mostrarValorCasilla().equals("-"));
 		setupEscenario3();
+		assertFalse(casilla.mostrarValorCasilla().equals("-"));
 		assertTrue(casilla.mostrarValorCasilla().equals(casilla.darValor()+""));
 	}
 

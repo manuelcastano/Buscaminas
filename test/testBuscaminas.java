@@ -79,11 +79,6 @@ public class TestBuscaminas {
 		setupEscenario1();
 		juego.resolver();
 		String azar1 = juego.mostrarTablero();
-		juego.resolver();
-		setupEscenario1();
-		juego.resolver();
-		String azar2 = juego.mostrarTablero();
-		assertTrue(!azar1.equals(azar2));
 		int cantidadMinas = 0;
 		for(int i = 0; i < azar1.length(); i++) {
 			if(azar1.charAt(i) == '*') {
@@ -91,21 +86,9 @@ public class TestBuscaminas {
 			}
 		}
 		assertTrue(cantidadMinas == 10);
-		cantidadMinas = 0;
-		for(int i = 0; i < azar2.length(); i++) {
-			if(azar2.charAt(i) == '*') {
-				cantidadMinas++;
-			}
-		}
-		assertTrue(cantidadMinas == 10);
 		setupEscenario2();
 		juego.resolver();
 		azar1 = juego.mostrarTablero();
-		juego.resolver();
-		setupEscenario2();
-		juego.resolver();
-		azar2 = juego.mostrarTablero();
-		assertTrue(!azar1.equals(azar2));
 		cantidadMinas = 0;
 		for(int i = 0; i < azar1.length(); i++) {
 			if(azar1.charAt(i) == '*') {
@@ -113,31 +96,12 @@ public class TestBuscaminas {
 			}
 		}
 		assertTrue(cantidadMinas == 40);
-		cantidadMinas = 0;
-		for(int i = 0; i < azar2.length(); i++) {
-			if(azar2.charAt(i) == '*') {
-				cantidadMinas++;
-			}
-		}
-		assertTrue(cantidadMinas == 40);
 		setupEscenario3();
 		juego.resolver();
 		azar1 = juego.mostrarTablero();
-		juego.resolver();
-		setupEscenario3();
-		juego.resolver();
-		azar2 = juego.mostrarTablero();
-		assertTrue(!azar1.equals(azar2));
 		cantidadMinas = 0;
 		for(int i = 0; i < azar1.length(); i++) {
 			if(azar1.charAt(i) == '*') {
-				cantidadMinas++;
-			}
-		}
-		assertTrue(cantidadMinas == 99);
-		cantidadMinas = 0;
-		for(int i = 0; i < azar2.length(); i++) {
-			if(azar2.charAt(i) == '*') {
 				cantidadMinas++;
 			}
 		}
@@ -234,6 +198,20 @@ public class TestBuscaminas {
 				assertTrue(juego.darCasillas()[i][j].darSeleccionada());
 			}
 		}
+		setupEscenario2();
+		for(int i = 0; i < juego.darCasillas().length; i++) {
+			for(int j = 0; j < juego.darCasillas()[0].length; j++) {
+				juego.abrirCasilla(i, j);
+				assertTrue(juego.darCasillas()[i][j].darSeleccionada());
+			}
+		}
+		setupEscenario3();
+		for(int i = 0; i < juego.darCasillas().length; i++) {
+			for(int j = 0; j < juego.darCasillas()[0].length; j++) {
+				juego.abrirCasilla(i, j);
+				assertTrue(juego.darCasillas()[i][j].darSeleccionada());
+			}
+		}
 	}
 	
 	@Test
@@ -268,6 +246,18 @@ public class TestBuscaminas {
 	@Test
 	public void testInicializarCasillasLibres() {
 		setupEscenario1();
+		for(int i = 0; i < juego.darCasillas().length; i++) {
+			for(int j = 0; j < juego.darCasillas()[0].length; j++) {
+				assertTrue(juego.darCasillas()[i][j] != null);
+			}
+		}
+		setupEscenario2();
+		for(int i = 0; i < juego.darCasillas().length; i++) {
+			for(int j = 0; j < juego.darCasillas()[0].length; j++) {
+				assertTrue(juego.darCasillas()[i][j] != null);
+			}
+		}
+		setupEscenario3();
 		for(int i = 0; i < juego.darCasillas().length; i++) {
 			for(int j = 0; j < juego.darCasillas()[0].length; j++) {
 				assertTrue(juego.darCasillas()[i][j] != null);
