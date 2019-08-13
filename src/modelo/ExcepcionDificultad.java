@@ -5,7 +5,10 @@ package modelo;
  */
 
 public class ExcepcionDificultad extends Exception{
-
+	
+	/**
+	 * Constructor de la clase ExcepcionDarPista
+	 */
 	public ExcepcionDificultad() {
 		super("Por favor ingrese un valor correcto");
 	}

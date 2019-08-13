@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"modelo","l":"Buscaminas"},{"p":"modelo","l":"Casilla"},{"p":"modelo","l":"ExcepcionDarPista"},{"p":"modelo","l":"ExcepcionDificultad"},{"p":"modelo","l":"ExcepcionNoExisteCasilla"},{"p":"interfaz","l":"Menu"},{"p":"<Unnamed>","l":"TestBuscaminas"},{"p":"<Unnamed>","l":"TestCasilla"}]

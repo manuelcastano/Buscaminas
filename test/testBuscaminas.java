@@ -5,22 +5,40 @@ import org.junit.jupiter.api.Test;
 import modelo.Buscaminas;
 import modelo.ExcepcionDarPista;
 
+/**
+ * 
+ * Clase realizada para testear los métodos de la clase buscaminas
+ *
+ */
 public class TestBuscaminas {
 	
 	private Buscaminas juego;
 	
+	/**
+	 * Metodo para inicializar la clase buscaminas en la dificultas principiante
+	 */
 	private void setupEscenario1() {
 		juego = new Buscaminas(1);
 	}
 	
+	/**
+	 * Metodo para inicializar la clase buscaminas en la dificultas intermedio
+	 */
 	private void setupEscenario2() {
 		juego = new Buscaminas(2);
 	}
 	
+	/**
+	 * Metodo para inicializar la clase buscaminas en la dificultas experto
+	 */
 	private void setupEscenario3() {
 		juego = new Buscaminas(3);
 	}
 	
+	/**
+	 * Metodo para probar el metodo de mmostrar tablero
+	 * Se prueba pasandole el tablero que se desea obtener y verificando el resultado sea igual al deseado
+	 */
 	@Test
 	public void testMostrarTablero() {
 		setupEscenario1();
@@ -74,6 +92,10 @@ public class TestBuscaminas {
 		assertTrue(juego.mostrarTablero().equals(tablero));
 	}
 	
+	/**
+	 * Metodo para probar el metodo generar minas
+	 * Se prueba contando la cantidad de minas en el tablero y asegurandose que sea igual a la cantidad de minas de acuerdo con la dificultad
+	 */
 	@Test
 	public void testGenerarMinas() {
 		setupEscenario1();
@@ -108,6 +130,10 @@ public class TestBuscaminas {
 		assertTrue(cantidadMinas == 99);	
 	}
 	
+	/**
+	 * Metodo para probar el metodo darPista
+	 * Se prueba verificando que haya cambiado el tablero al llamarse el metodo darPista
+	 */
 	@Test
 	public void testDarPista() {
 		setupEscenario1();
@@ -139,6 +165,11 @@ public class TestBuscaminas {
 		assertFalse(tablero1.equals(tablero2));
 	}
 	
+	/**
+	 * Metodo para probar el metodo gano
+	 * Para probar el metodo primero se resuelve el tablero y luego se verifica que el metodo devuelva un True
+	 * 
+	 */
 	@Test
 	public void testGano() {
 		setupEscenario1();
@@ -155,6 +186,10 @@ public class TestBuscaminas {
 		assertTrue(juego.gano());
 	}
 	
+	/**
+	 * Metodo para probar el metodo resolver
+	 * Para probar el metodo se invoca y luego se verifica que en tablero no quede ningun caracter '-'
+	 */
 	@Test
 	public void testResolver() {
 		setupEscenario1();
@@ -189,6 +224,10 @@ public class TestBuscaminas {
 		assertFalse(mina);
 	}
 	
+	/**
+	 * Metodo para probar el metodo abrirCasilla
+	 * Para probar el metodo primero se invoca sobre una casilla y luego se verifica el metodo darSeleccionada de la casilla devuelva un True
+	 */
 	@Test
 	public void testAbrirCasilla() {
 		setupEscenario1();
@@ -214,6 +253,10 @@ public class TestBuscaminas {
 		}
 	}
 	
+	/**
+	 * Metodo para probar el metodo cantidadMinasAlrededor
+	 * Para probar el metodo se verifica en algunas casillas elegidas arbitrariamente y se verifica que la cantidad de minas a su alrededor no sea mayor al maximo posible
+	 */
 	@Test
 	public void testCantidadMinasAlrededor() {
 		setupEscenario1();
@@ -230,6 +273,10 @@ public class TestBuscaminas {
 		assertFalse(juego.darCasillas()[4][7].darValor() > 8);
 	}
 	
+	/**
+	 * Metodo para probar el metodo inicializarPartida
+	 * Para probarlo se verifica que la cantidad de filas y columnas de la matriz sea igual al esperado de acuerdo con la dificultad
+	 */
 	@Test
 	public void testInicializarPartida() {
 		setupEscenario1();
@@ -243,6 +290,10 @@ public class TestBuscaminas {
 		assertTrue(juego.darCasillas()[0].length == 30);
 	}
 	
+	/**
+	 * Metodo para probar el metodo inicializarCasillasLibres
+	 * Para probarlo se verifica que ninguna de las casillas de la matriz quede nula
+	 */
 	@Test
 	public void testInicializarCasillasLibres() {
 		setupEscenario1();
