@@ -6,7 +6,7 @@ import java.util.ResourceBundle;
 
 import javafx.fxml.Initializable;
 
-public class ControlVentana implements Initializable{
+public class WindowController implements Initializable{
 	
 	private Buscaminas buscaminas;
 
