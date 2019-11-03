@@ -1,5 +1,8 @@
 package view;
 
+import java.net.URL;
+
+import controller.WindowController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,13 +16,9 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			VBox root = new VBox();;
-			for(int i = 0; i < 9; i++) {
-				Button b = new Button("Ejemplo");
-				root.getChildren().add(b);
-			}
-			primaryStage.setTitle("Mi primer ventana");
+			Parent root = FXMLLoader.load(getClass().getResource("Window.fxml"));
 			primaryStage.setScene(new Scene(root));
+			primaryStage.setTitle("Buscaminas");
 			primaryStage.show();
 		} catch(Exception e) {
 			e.printStackTrace();

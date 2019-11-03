@@ -1,6 +1,84 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.WindowController" />
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.WindowController">
+   <children>
+      <AnchorPane fx:id="ap" prefHeight="400.0" prefWidth="600.0" visible="false">
+         <children>
+            <Label layoutX="193.0" layoutY="38.0" text="Bienvenido al buscaminas">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Label>
+            <Label layoutX="220.0" layoutY="109.0" text="Nivel de dificultad">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Label>
+            <Button layoutX="244.0" layoutY="181.0" mnemonicParsing="false" onMouseClicked="#principiante" text="Principiante">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Button>
+            <Button layoutX="247.0" layoutY="244.0" mnemonicParsing="false" onMouseClicked="#intermedio" text="Intermedio">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Button>
+            <Button layoutX="260.0" layoutY="307.0" mnemonicParsing="false" onMouseClicked="#experto" text="Experto">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+      <BorderPane fx:id="bp" prefHeight="400.0" prefWidth="600.0">
+         <top>
+            <AnchorPane prefHeight="99.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button layoutX="207.0" layoutY="24.0" mnemonicParsing="false" onMouseClicked="#darPista" text="Dar pista" />
+                  <Button layoutX="324.0" layoutY="24.0" mnemonicParsing="false" onMouseClicked="#verSolucion" text="Ver solucion" />
+                  <Label fx:id="info" layoutX="168.0" layoutY="58.0" prefHeight="27.0" prefWidth="281.0">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+         </top>
+         <right>
+            <Button fx:id="reinicio" mnemonicParsing="false" prefHeight="25.0" prefWidth="158.0" text="Reiniciar" visible="false" BorderPane.alignment="CENTER">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Button>
+         </right>
+         <left>
+            <Label prefHeight="189.0" prefWidth="176.0" text="Haz clic derecho sobre la casilla para marcarla como una mina" wrapText="true" BorderPane.alignment="CENTER">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+         </left>
+      </BorderPane>
+      <AnchorPane fx:id="ap2" prefHeight="400.0" prefWidth="600.0" visible="false">
+         <children>
+            <Label fx:id="infoFinish" layoutX="230.0" layoutY="84.0" prefHeight="83.0" prefWidth="141.0">
+               <font>
+                  <Font size="32.0" />
+               </font>
+            </Label>
+            <Button layoutX="221.0" layoutY="238.0" mnemonicParsing="false" onMouseClicked="#reiniciar" text="Reiniciar juego">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

@@ -400,7 +400,7 @@ public class Buscaminas {
 			for(int j = 0; j < casillas[0].length && !pista; j++) {
 				if(!casillas[i][j].esMina() && !casillas[i][j].darSeleccionada() && casillas[i][j].darValor() > 0) {
 					casillas[i][j].destapar();
-					msg = "Se destapo la casilla "+(i+1)+"-"+(j+1);
+					msg = i+"-"+j;
 					pista = true;
 				}
 			}
